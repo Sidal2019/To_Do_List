@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Management System</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #e8e8e8;
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Management System</h1>
+    <div id="taskList"></div>
+
+    <script>
+        // JavaScript code for fetching tasks from the backend
+
+        fetch('/tasks')
+            .then(response => response.json())
+            .then(data => {
+                const taskListDiv = document.getElementById('taskList');
+                let taskListHTML = '<ul>';
+                data.forEach(task => {
+                    taskListHTML += `<li>${task.name} | Deadline: ${task.deadline} | Priority: ${task.priority} | Label: ${task.label}</li>`;
+                });
+                taskListHTML += '</ul>';
+                taskListDiv.innerHTML = taskListHTML;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
